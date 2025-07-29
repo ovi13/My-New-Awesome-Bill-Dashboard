@@ -80,15 +80,6 @@
         </div>
         {% endif %}
 
-        {% if combined_transactions %}
-        <h3>Transaction Details:</h3>
-            {% for trans in combined_transactions %}
-            <div class="bill-item">
-                <span class="bill-label">{{ trans.type }}:</span>
-                <span class="bill-value">{{ trans.id }}</span>
-            </div>
-            {% endfor %}
-        {% endif %}
 
 
         <h3>Total Bill: ৳{{ "%.2f"|format(total_bill|float) }}</h3>
@@ -101,6 +92,17 @@
         {% else %}
         <p><strong>Balance:</strong> ৳{{ "%.2f"|format(balance|float) }}</p>
         {% endif %}
+
+                {% if combined_transactions %}
+        <h3>Transaction Details:</h3>
+            {% for trans in combined_transactions %}
+            <div class="bill-item">
+                <span class="bill-label">{{ trans.type }}:</span>
+                <span class="bill-value">{{ trans.id }}</span>
+            </div>
+            {% endfor %}
+        {% endif %}
+
 
         <p>This is a computer programming generated invoice, does not require any signature.</p>
 
