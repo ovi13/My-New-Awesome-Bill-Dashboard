@@ -112,7 +112,7 @@
 
     <script>
         function downloadPDF() {
-            console.log("Download PDF button clicked!");
+            console.log("Download PDF button clicked!"); // Check if function is called
             const element = document.querySelector('.container');
             if (!element) {
                 console.error("Error: '.container' element not found for PDF generation.");
@@ -124,8 +124,11 @@
                 margin:       [0.1, 0.1, 0.1, 0.1], // Very small margins (top, right, bottom, left)
                 filename:     'invoice.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 }, // Keep scale high for quality
+                // Use a smaller scale to force more content into the image capture.
+                // This might make text slightly less sharp but could ensure fit.
+                html2canvas:  { scale: 1.5, logging: false }, // Reduced scale from 2 to 1.5, disable logging
                 // Custom format: US Letter width (8.5in) by an even more generous height (e.g., 20in)
+                // If 20in is not enough, try 25 or more.
                 jsPDF:        { unit: 'in', format: [8.5, 20], orientation: 'portrait' }
             };
 

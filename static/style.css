@@ -432,7 +432,7 @@ button:active {
     body {
         margin: 0;
         padding: 0;
-        font-size: 8pt; /* Slightly smaller font for entire body in print */
+        font-size: 8pt; /* Smallest font for maximum print compression */
         background-image: none !important;
         background: none !important;
         background-color: white !important;
@@ -440,21 +440,21 @@ button:active {
     .container {
         width: 100%;
         margin: 0;
-        padding: 3mm; /* Even smaller padding for the container in print */
+        padding: 2mm; /* Ultra-small padding for the container */
         box-shadow: none;
         border-radius: 0;
-        /* Force single page - very aggressive */
-        min-height: 250mm; /* A4 height is ~297mm. Give enough, but not too much */
-        page-break-after: always; /* Ensure container starts a new page and doesn't break itself */
+        min-height: 270mm; /* A4 height is ~297mm. Set a very high minimum to prevent browser splitting */
+        page-break-after: avoid !important; /* Try to prevent a break after the container */
+        page-break-inside: avoid !important; /* Try to keep container on one page */
     }
     h1 {
-        font-size: 1.6em; /* Smaller h1 */
-        margin-bottom: 10px;
+        font-size: 1.5em; /* Smaller h1 */
+        margin-bottom: 8px; /* Reduced margin */
     }
     h2, h3, h4 {
-        font-size: 1.0em; /* Smaller h2, h3, h4 */
-        margin-top: 10px;
-        margin-bottom: 5px;
+        font-size: 0.9em; /* Smaller h2, h3, h4 */
+        margin-top: 8px; /* Reduced margin */
+        margin-bottom: 4px; /* Reduced margin */
         margin-left: 0;
         margin-right: 0;
         page-break-after: avoid; /* Keep headings with content below */
@@ -465,13 +465,13 @@ button:active {
         width: 100%;
     }
     p, .bill-item {
-        font-size: 0.8em; /* Smaller text for paragraphs and bill items */
-        margin-bottom: 2px; /* Reduce space between items */
-        line-height: 1.1; /* Tighter line height */
+        font-size: 0.75em; /* Smallest body text for paragraphs and bill items */
+        margin-bottom: 1px; /* Minimal space between items */
+        line-height: 1.05; /* Very tight line height */
         page-break-inside: avoid; /* Crucial for preventing splitting of bill items */
     }
     .bill-item {
-        padding: 2px 0; /* Less padding for print items */
+        padding: 1px 0; /* Minimal padding for print items */
         background-color: transparent;
         box-shadow: none;
         border-bottom: 1px dashed #ccc;
@@ -488,8 +488,8 @@ button:active {
         width: 100%;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 10px; /* Adjust print margin */
-        margin-bottom: 10px; /* Adjust print margin */
+        margin-top: 8px; /* Reduced print margin */
+        margin-bottom: 8px; /* Reduced print margin */
     }
     .button-container {
         display: none;
@@ -497,22 +497,22 @@ button:active {
 
     /* Calculator print styles - make it compact */
     .calculator-table {
-        font-size: 0.6em; /* Even smaller font for printing tables */
+        font-size: 0.55em; /* Even smaller font for printing tables */
         grid-template-columns: 1.5fr repeat(7, 1fr);
         border: 1px solid #ccc;
         page-break-inside: avoid; /* Prevent table from breaking in half */
     }
     .header-cell, .row-label, .input-cell, .output-cell {
-        padding: 2px 2px; /* Reduced padding for print */
+        padding: 1px 1px; /* Minimal padding for print */
         border-bottom: 1px solid #eee;
         border-right: 1px solid #eee;
     }
     .header-cell:first-child, .row-label {
-        padding-left: 3px;
+        padding-left: 2px;
     }
     .input-cell input[type="number"] {
-        padding: 1px;
-        font-size: 0.8em;
+        padding: 0px; /* No padding */
+        font-size: 0.7em;
     }
     /* Hide mobile ::before labels in print */
     .table-row .input-cell::before,
