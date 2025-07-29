@@ -125,8 +125,8 @@
                 filename:     'invoice.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2 }, // Keep scale high for quality
-                // Custom format: US Letter width (8.5in) by a very generous height (e.g., 15in)
-                jsPDF:        { unit: 'in', format: [8.5, 15], orientation: 'portrait' }
+                // Custom format: US Letter width (8.5in) by an even more generous height (e.g., 20in)
+                jsPDF:        { unit: 'in', format: [8.5, 20], orientation: 'portrait' }
             };
 
             try {

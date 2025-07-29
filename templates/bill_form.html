@@ -155,9 +155,10 @@
             `;
         }
 
-        // This function controls which section of fields is visible and updates user info display
+        // This function controls which section of fields is visible
         function showBillFields() {
             var userSelect = document.getElementById("user").value;
+            console.log("showBillFields called. Selected user:", userSelect); // Debug log
 
             // Hide all potential bill field containers initially
             document.getElementById("motorBillFields").style.display = "none";
@@ -175,7 +176,8 @@
                 document.getElementById("customUserDetailsInput").style.display = "block"; // Show custom name/id/meter inputs
                 document.getElementById("customUserFields").style.display = "block"; // Show custom bill inputs
                 activeSectionId = 'custom';
-            } else if (fixed_data_js[userSelect]) { // If a predefined user or bill type is selected
+            } else if (fixed_data_js.hasOwnProperty(userSelect)) { // Check if the selected user exists in fixed_data_js
+                console.log("Predefined user selected:", userSelect); // Debug log
                 document.getElementById("selectedUserDetailsDisplay").style.display = "block"; // Show predefined ID display
 
                 const selectedUserData = fixed_data_js[userSelect];
@@ -192,16 +194,19 @@
                     document.getElementById("individualUserFields").style.display = "block";
                     activeSectionId = 'individual';
                 }
+            } else {
+                console.log("No specific user or custom data selected. Hiding all dynamic fields."); // Debug log
             }
 
             // After setting display, call helper functions for the active section
             if (activeSectionId) {
+                console.log("Active section ID:", activeSectionId); // Debug log
                 resetTransactionFields(activeSectionId); // Ensure at least one transaction field is present
                 resetRequiredAttributes(activeSectionId); // Manage required attributes
             } else {
-                 // If no section is active, ensure all required attributes are removed
                  resetRequiredAttributes(''); // Pass empty string to clear all required from hidden fields
             }
+            console.log("showBillFields finished."); // Debug log
         }
 
         function addTransactionField(sectionId) {
@@ -223,34 +228,39 @@
             }
         }
 
+        // Corrected logic for resetRequiredAttributes
         function resetRequiredAttributes(activeSectionPrefix) {
             const allSections = ['motor', 'gas', 'custom', 'individual'];
+            console.log("resetRequiredAttributes called with activeSectionPrefix:", activeSectionPrefix); // Debug log
 
             allSections.forEach(sectionPrefix => {
-                const sectionDivId = `${sectionPrefix}BillFields`;
+                // Construct the full ID for the main section div
+                const sectionDivId = `${sectionPrefix}BillFields`; // e.g., "motorBillFields"
                 const sectionDiv = document.getElementById(sectionDivId);
 
-                if (!sectionDiv) return;
+                if (!sectionDiv) {
+                    // console.warn(`Element with ID ${sectionDivId} not found.`); // Warn if not found
+                    return;
+                }
 
                 const inputsAndSelects = sectionDiv.querySelectorAll('input, select');
 
                 inputsAndSelects.forEach(input => {
                     if (sectionPrefix === activeSectionPrefix) {
                         // Set 'required' for the inputs and selects within the ACTIVE section
-                        // Exclude transaction_types and transaction_ids as their 'required' is handled in createTransactionFieldHtml
+                        // Only set required if it's not a transaction_types or transaction_ids input
                         if (
-                            (input.name.includes('bill') || input.name.includes('charge') || input.name.includes('paid')) &&
+                            (input.name.includes('bill') || input.name.includes('charge') || input.name.includes('paid') ||
+                            (input.type === 'text' && (input.name.includes('name_custom') || input.name.includes('consumer_id_custom') || input.name.includes('meter_number_custom')))) &&
                             !input.name.startsWith('transaction_types_') && !input.name.startsWith('transaction_ids_')
                         ) {
                             input.setAttribute('required', 'required');
-                        }
-                        // Also for custom user's specific name/id/meter inputs, only when custom is active
-                        if (sectionPrefix === 'custom' && (input.name === 'name_custom' || input.name === 'consumer_id_custom' || input.name === 'meter_number_custom')) {
-                             input.setAttribute('required', 'required');
+                            // console.log(`Set required on: ${input.id || input.name}`); // Debug
                         }
                     } else {
                         // Remove 'required' for elements in INACTIVE sections
                         input.removeAttribute('required');
+                        // console.log(`Removed required from: ${input.id || input.name}`); // Debug
                     }
                 });
             });
@@ -260,11 +270,13 @@
             if (billingMonthInput) {
                 billingMonthInput.setAttribute('required', 'required');
             }
+            console.log("resetRequiredAttributes finished."); // Debug log
         }
         // --- END Core JavaScript functions for dynamic field display ---
 
         // Initial call on page load to initialize form state
         document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM fully loaded and parsed. Calling showBillFields()."); // Debug log
             showBillFields(); // Initialize form display based on default selection
         });
     </script>

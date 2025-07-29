@@ -443,6 +443,9 @@ button:active {
         padding: 3mm; /* Even smaller padding for the container in print */
         box-shadow: none;
         border-radius: 0;
+        /* Force single page - very aggressive */
+        min-height: 250mm; /* A4 height is ~297mm. Give enough, but not too much */
+        page-break-after: always; /* Ensure container starts a new page and doesn't break itself */
     }
     h1 {
         font-size: 1.6em; /* Smaller h1 */
@@ -454,6 +457,8 @@ button:active {
         margin-bottom: 5px;
         margin-left: 0;
         margin-right: 0;
+        page-break-after: avoid; /* Keep headings with content below */
+        page-break-before: auto; /* Allow break before if necessary */
     }
     h2, h3 { /* Ensure specific headings remain centered in print too */
         text-align: center;
@@ -462,6 +467,8 @@ button:active {
     p, .bill-item {
         font-size: 0.8em; /* Smaller text for paragraphs and bill items */
         margin-bottom: 2px; /* Reduce space between items */
+        line-height: 1.1; /* Tighter line height */
+        page-break-inside: avoid; /* Crucial for preventing splitting of bill items */
     }
     .bill-item {
         padding: 2px 0; /* Less padding for print items */
@@ -472,7 +479,6 @@ button:active {
         margin-left: 0;
         margin-right: 0;
         justify-content: space-between;
-        page-break-inside: avoid; /* Crucial for preventing splitting of bill items */
     }
     .bill-item:last-of-type {
         border-bottom: none;
