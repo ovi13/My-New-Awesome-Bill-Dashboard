@@ -80,6 +80,16 @@
         </div>
         {% endif %}
 
+        {% if combined_transactions %}
+        <h3>Transaction Details:</h3>
+            {% for trans in combined_transactions %}
+            <div class="bill-item">
+                <span class="bill-label">{{ trans.type }}:</span>
+                <span class="bill-value">{{ trans.id }}</span>
+            </div>
+            {% endfor %}
+        {% endif %}
+
 
         <h3>Total Bill: ৳{{ "%.2f"|format(total_bill|float) }}</h3>
         <p><strong>Amount Paid:</strong> ৳{{ "%.2f"|format(total_paid|float) }}</p>
@@ -92,17 +102,6 @@
         <p><strong>Balance:</strong> ৳{{ "%.2f"|format(balance|float) }}</p>
         {% endif %}
 
-          {% if combined_transactions %}
-        <h3>Transaction Details:</h3>
-            {% for trans in combined_transactions %}
-            <div class="bill-item">
-                <span class="bill-label">{{ trans.type }}:</span>
-                <span class="bill-value">{{ trans.id }}</span>
-            </div>
-            {% endfor %}
-        {% endif %}
-
-
         <p>This is a computer programming generated invoice, does not require any signature.</p>
 
         <div class="button-container">
@@ -113,7 +112,7 @@
 
     <script>
         function downloadPDF() {
-            console.log("Download PDF button clicked!"); // Check if function is called
+            console.log("Download PDF button clicked!");
             const element = document.querySelector('.container');
             if (!element) {
                 console.error("Error: '.container' element not found for PDF generation.");
@@ -122,12 +121,12 @@
             }
 
             var opt = {
-                margin:       [0.3, 0.3, 0.3, 0.3], // Reduced margins
+                margin:       [0.1, 0.1, 0.1, 0.1], // Very small margins (top, right, bottom, left)
                 filename:     'invoice.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                // Trying a slightly taller custom format for consistent single-page fit
-                jsPDF:        { unit: 'in', format: [8.5, 13.5], orientation: 'portrait' } // Letter width, but taller
+                html2canvas:  { scale: 2 }, // Keep scale high for quality
+                // Custom format: US Letter width (8.5in) by a very generous height (e.g., 15in)
+                jsPDF:        { unit: 'in', format: [8.5, 15], orientation: 'portrait' }
             };
 
             try {

@@ -472,6 +472,7 @@ button:active {
         margin-left: 0;
         margin-right: 0;
         justify-content: space-between;
+        page-break-inside: avoid; /* Crucial for preventing splitting of bill items */
     }
     .bill-item:last-of-type {
         border-bottom: none;
@@ -493,6 +494,7 @@ button:active {
         font-size: 0.6em; /* Even smaller font for printing tables */
         grid-template-columns: 1.5fr repeat(7, 1fr);
         border: 1px solid #ccc;
+        page-break-inside: avoid; /* Prevent table from breaking in half */
     }
     .header-cell, .row-label, .input-cell, .output-cell {
         padding: 2px 2px; /* Reduced padding for print */
@@ -511,6 +513,4 @@ button:active {
     .table-row .output-cell::before {
         content: none;
     }
-
-    /* Removed Analytics print styles */
 }
