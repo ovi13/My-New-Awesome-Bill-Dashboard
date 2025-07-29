@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('calculator') }}">Bill Calculator</a>
+        <a href="{{ url_for('bill_form') }}">Generate Invoice</a>
+    </div>
+
+    <div class="container">
+        <h1>Invoice for {{ name }}</h1>
+        <p><strong>Consumer ID:</strong> {{ consumer_id if consumer_id else 'N/A' }}</p>
+        <p><strong>Meter Number:</strong> {{ meter_number if meter_number else 'N/A' }}</p>
+        <p><strong>Billing Month:</strong> {{ billing_month }}</p>
+        <p><strong>Billing Date:</strong> {{ billing_date }}</p>
+        <p><strong>Billing Time:</strong> {{ billing_time }}</p>
+
+        <h2>Bill Breakdown:</h2>
+        {% if electricity_bill > 0 %}
+        <div class="bill-item">
+            <span class="bill-label">Electricity Bill (Total):</span>
+            <span class="bill-value">৳{{ "%.2f"|format(electricity_bill|float) }}</span>
+        </div>
+        {% endif %}
+
+        {% if motor_bill > 0 %}
+        <div class="bill-item">
+            <span class="bill-label">Motor Bill (Total):</span>
+            <span class="bill-value">৳{{ "%.2f"|format(motor_bill|float) }}</span>
+        </div>
+        {# Check if 'name' is 'Motor Bill' to display shares specifically for this type #}
+        {% if name == "Motor Bill" %}
+        <div class="bill-item">
+            <span class="bill-label">Mridul's Share (Motor Bill):</span>
+            <span class="bill-value">৳{{ "%.2f"|format(motor_bill_mridul|float) }}</span>
+        </div>
+        <div class="bill-item">
+            <span class="bill-label">Rita's Share (Motor Bill):</span>
+            <span class="bill-value">৳{{ "%.2f"|format(motor_bill_rita|float) }}</span>
+        </div>
+        {% endif %}
+        {% endif %}
+
+        {% if gas_bill > 0 %}
+        <div class="bill-item">
+            <span class="bill-label">Gas Bill (Total):</span>
+            <span class="bill-value">৳{{ "%.2f"|format(gas_bill|float) }}</span>
+        </div>
+        {% if name == "Gas Bill" %}
+        <div class="bill-item">
+            <span class="bill-label">Mridul's Share (Gas Bill):</span>
+            <span class="bill-value">৳{{ "%.2f"|format(gas_bill_mridul|float) }}</span>
+        </div>
+        <div class="bill-item">
+            <span class="bill-label">Pappu's Share (Gas Bill):</span>
+            <span class="bill-value">৳{{ "%.2f"|format(gas_bill_pappu|float) }}</span>
+        </div>
+        <div class="bill-item">
+            <span class="bill-label">Rita's Share (Gas Bill):</span>
+            <span class="bill-value">৳{{ "%.2f"|format(gas_bill_rita|float) }}</span>
+        </div>
+        <div class="bill-item">
+            <span class="bill-label">Pijush's Share (Gas Bill):</span>
+            <span class="bill-value">৳{{ "%.2f"|format(gas_bill_pijush|float) }}</span>
+        </div>
+        {% endif %}
+        {% endif %}
+
+        {% if bkash_charge > 0 %}
+        <div class="bill-item">
+            <span class="bill-label">Bkash Charge:</span>
+            <span class="bill-value">৳{{ "%.2f"|format(bkash_charge|float) }}</span>
+        </div>
+        {% endif %}
+
+
+        <h3>Total Bill: ৳{{ "%.2f"|format(total_bill|float) }}</h3>
+        <p><strong>Amount Paid:</strong> ৳{{ "%.2f"|format(total_paid|float) }}</p>
+
+        {% if balance < 0 %}
+        <p><strong>Balance Due:</strong> ৳{{ "%.2f"|format(balance|abs|float) }}</p>
+        {% elif balance > 0 %}
+        <p><strong>Balance Returned:</strong> ৳{{ "%.2f"|format(balance|float) }}</p>
+        {% else %}
+        <p><strong>Balance:</strong> ৳{{ "%.2f"|format(balance|float) }}</p>
+        {% endif %}
+
+          {% if combined_transactions %}
+        <h3>Transaction Details:</h3>
+            {% for trans in combined_transactions %}
+            <div class="bill-item">
+                <span class="bill-label">{{ trans.type }}:</span>
+                <span class="bill-value">{{ trans.id }}</span>
+            </div>
+            {% endfor %}
+        {% endif %}
+
+
+        <p>This is a computer programming generated invoice, does not require any signature.</p>
+
+        <div class="button-container">
+            <button onclick="downloadPDF()">Download PDF</button>
+            <button onclick="window.print()">Print Invoice</button>
+        </div>
+    </div>
+
+    <script>
+        function downloadPDF() {
+            console.log("Download PDF button clicked!"); // Check if function is called
+            const element = document.querySelector('.container');
+            if (!element) {
+                console.error("Error: '.container' element not found for PDF generation.");
+                alert("Could not generate PDF: content missing.");
+                return;
+            }
+
+            var opt = {
+                margin:       [0.3, 0.3, 0.3, 0.3], // Reduced margins
+                filename:     'invoice.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                // Trying a slightly taller custom format for consistent single-page fit
+                jsPDF:        { unit: 'in', format: [8.5, 13.5], orientation: 'portrait' } // Letter width, but taller
+            };
+
+            try {
+                html2pdf().from(element).set(opt).save();
+                console.log("PDF generation initiated successfully.");
+            } catch (error) {
+                console.error("Error during PDF generation:", error);
+                alert("Failed to generate PDF. Check console for details.");
+            }
+        }
+    </script>
+</body>
+</html>

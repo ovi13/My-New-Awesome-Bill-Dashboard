@@ -1,0 +1,516 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fc; /* Fallback color */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    /* --- START Fancy Background Changes --- */
+    /* Multiple backgrounds: pattern first, then gradient */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Cpath d='M5 0L6.18 3.63L10 3.82L7.09 6.18L8.18 10L5 7.73L1.82 10L2.91 6.18L0 3.82L3.82 3.63L5 0Z' fill='%23ccc' opacity='0.2'/%3E%3C/svg%3E"), linear-gradient(to right, #ece9e6, #ffffff);
+    background-repeat: repeat, no-repeat; /* Repeat the pattern, don't repeat the gradient */
+    background-position: 0 0, center center; /* Position for pattern, then for gradient */
+    background-size: auto, cover; /* Auto size for pattern, cover for gradient */
+    /* --- END Fancy Background Changes --- */
+}
+
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: 100%; /* Ensure navbar spans full width */
+    position: relative; /* Remove if no floated right elements */
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 17px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+
+.container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto; /* Added some top/bottom margin */
+}
+
+h1 {
+    color: #4CAF50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #333;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    text-align: center; /* Centering for "Bill Breakdown" */
+}
+
+h3 { /* Target h3 for "Transaction Details" heading */
+    color: #333;
+    text-align: center; /* Center the text */
+    margin-left: auto; /* Remove default margin for centering */
+    margin-right: auto; /* Remove default margin for centering */
+    width: fit-content; /* Make the element only as wide as its content */
+    margin-top: 25px; /* Keep consistent top margin */
+    margin-bottom: 15px; /* Keep consistent bottom margin */
+}
+
+h4 { /* For other smaller headings if used */
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+.tagline {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.credit {
+    text-align: center;
+    font-size: 0.9em;
+    color: #888;
+    margin-top: 20px;
+}
+
+
+.bill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 8px;
+    width: 80%; /* Adjust width to make them narrower */
+    margin-left: auto; /* Center the narrower bill-item */
+    margin-right: auto; /* Center the narrower bill-item */
+}
+
+.bill-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.bill-value {
+    color: #4CAF50;
+}
+
+/* Form specific styles */
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="number"],
+form select {
+    width: calc(100% - 22px); /* Account for padding/border */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.transaction-group {
+    background-color: #eef;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccd;
+}
+.transaction-group label,
+.transaction-group input,
+.transaction-group select {
+    width: calc(100% - 10px); /* Adjust for inner padding */
+    margin-bottom: 8px;
+}
+
+/* Centering for the special note paragraph */
+.container p:last-of-type { /* This targets the last paragraph in the .container, which is your "special note" */
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%; /* Example width, adjust as needed */
+    margin-top: 25px; /* Add some space above it */
+    margin-bottom: 25px; /* Add space below it, before buttons */
+}
+
+
+/* --- START Fancy Button Styles --- */
+
+/* For buttons in forms (Generate Invoice) and button container (Print/Download) */
+button {
+    color: white;
+    padding: 12px 25px; /* Slightly more padding for a better feel */
+    border: none;
+    border-radius: 30px; /* More rounded corners for a modern look */
+    cursor: pointer;
+    font-size: 1.1em; /* Slightly smaller font to fit well */
+    font-weight: bold; /* Make text bolder */
+    letter-spacing: 0.5px; /* Slight letter spacing */
+    transition: all 0.3s ease; /* Smooth transitions for all properties */
+
+    background-image: linear-gradient(to right, #4CAF50 0%, #63B266  51%, #4CAF50  100%); /* Green gradient */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    background-size: 200% auto; /* For moving gradient effect */
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px; /* More space above */
+    margin-bottom: 20px; /* Space below */
+    width: fit-content;
+}
+
+/* Hover effects for fancy buttons */
+button:hover {
+    background-position: right center; /* Move gradient on hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+button:active {
+    transform: translateY(0); /* Press down effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Smaller shadow when pressed */
+}
+
+
+/* For button containers (Print/Download buttons are expected to be in this) */
+.button-container {
+    text-align: center; /* Center buttons horizontally within their container */
+    margin-top: 30px; /* Consistent top margin */
+    margin-bottom: 20px; /* Consistent bottom margin */
+}
+
+.button-container button {
+    display: inline-block; /* Make them inline-block to sit next to each other */
+    margin: 0 10px; /* More space between buttons */
+    /* Override block display and auto margins from general button rule */
+    margin-left: 10px; /* Ensure specific margin */
+    margin-right: 10px; /* Ensure specific margin */
+}
+
+/* --- END Fancy Button Styles --- */
+
+/* --- START Calculator Specific Styles --- */
+.calculator-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.excel-header {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.excel-header label {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.excel-header input[type="number"] {
+    width: 100px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: right;
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+}
+
+.calculator-table {
+    display: grid;
+    /* Define grid columns for Excel-like layout */
+    grid-template-columns: 1.5fr repeat(7, 1fr); /* Name column wider, then 7 equal columns */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden; /* Ensures rounded corners apply correctly */
+    font-size: 0.9em; /* Slightly smaller font for compactness */
+}
+
+.table-header, .table-row {
+    display: contents; /* Makes grid items children of the grid, but don't create new boxes */
+}
+
+.header-cell, .row-label, .input-cell, .output-cell {
+    padding: 10px 8px;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align numbers to right */
+}
+
+.header-cell:first-child, .row-label {
+    justify-content: flex-start; /* Align labels to left */
+    padding-left: 12px;
+}
+
+.header-cell {
+    background-color: #e0e0e0;
+    font-weight: bold;
+    text-align: center;
+    justify-content: center; /* Center header text */
+    color: #333;
+    border-bottom: 2px solid #ccc; /* Thicker border for header */
+}
+
+.net-total-row .row-label {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    color: #333;
+    border-top: 2px solid #ccc; /* Thicker border for net total row */
+    text-align: left;
+}
+
+.net-total-row .output-cell {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    border-top: 2px solid #ccc; /* Thicker border for net total row */
+    color: #4CAF50; /* Green for positive returns (default for net row) */
+}
+
+.table-row:last-of-type .input-cell,
+.table-row:last-of-type .output-cell {
+    border-bottom: none; /* No bottom border for the last row */
+}
+
+/* Remove right border for the last column */
+.header-cell:last-child,
+.input-cell:last-child,
+.output-cell:last-child {
+    border-right: none;
+}
+
+.row-label {
+    font-weight: bold;
+    color: #8a2be2; /* Purple-ish color from screenshot */
+}
+
+.input-cell input[type="number"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    text-align: right;
+    box-sizing: border-box; /* Include padding in width */
+    font-size: 0.95em;
+    color: #333;
+}
+
+.output-cell {
+    font-weight: bold;
+    color: #4CAF50; /* Default green for positive output values */
+}
+
+/* Specific styling for Total Bill and Return amounts based on screenshot colors */
+.output-cell.total-bill,
+.output-cell.net-total-bill,
+.output-cell.return-amount,
+.output-cell.net-return-amount {
+    color: #ffa500; /* Orange for these specific totals/returns */
+}
+/* Override orange for explicitly green returns (positive) from JS */
+/* The JS applies 'color: green' or 'color: red' directly, this makes sure CSS doesn't fight it */
+.return-amount[style*="color: rgb(76, 175, 80)"], /* Matches the JS RGB green */
+.net-return-amount[style*="color: rgb(76, 175, 80)"] {
+    color: #4CAF50 !important; /* Force green if JS sets it */
+}
+
+
+/* Specific styling for readonly cells */
+.readonly-value {
+    background-color: #f8f8f8;
+    border: none;
+    cursor: default;
+    color: #555;
+    font-weight: normal; /* Make fixed values look less like inputs */
+}
+
+
+/* --- Responsive Adjustments for Calculator --- */
+@media (max-width: 768px) {
+    .calculator-table {
+        /* When stacked, each row becomes a single column, but individual cells still exist */
+        grid-template-columns: 1fr; /* Stack columns on small screens */
+    }
+
+    .table-header, .table-row, .net-total-row {
+        /* This ensures the 'display: contents' is overridden for stacking */
+        display: grid;
+        grid-template-columns: 1fr;
+        border-bottom: 1px solid #eee; /* Maintain row separation */
+    }
+    .header-cell, .row-label, .input-cell, .output-cell {
+        border-right: none; /* Remove vertical borders when stacked */
+        justify-content: flex-start; /* Left-align content */
+        border-bottom: 1px solid #eee; /* Add horizontal border for each cell */
+    }
+    .header-cell {
+        text-align: left;
+        background-color: #d0d0d0; /* Slightly darker header background when stacked */
+        padding-left: 10px; /* Adjust padding */
+    }
+    .row-label {
+        background-color: #f5f5f5; /* Light background for row labels */
+        padding-left: 10px;
+    }
+    .input-cell input[type="number"] {
+        width: calc(100% - 10px); /* Adjust input width for padding */
+        text-align: left; /* Align input text to left */
+    }
+    .output-cell {
+        text-align: left;
+    }
+    .net-total-row .output-cell, .net-total-row .row-label {
+        border-top: none; /* Remove redundant top border when stacked */
+    }
+    /* Add labels to stacked cells for clarity (basic example, can be expanded) */
+    .table-row .input-cell::before,
+    .table-row .output-cell::before {
+        font-weight: bold;
+        margin-right: 10px;
+        color: #555;
+        content: attr(class) ": "; /* This will show the class name, e.g., "electricity-bill: " */
+        text-transform: capitalize; /* Make it look nicer */
+        display: inline-block; /* Ensure it stays with the content */
+        min-width: 100px; /* Give it some space */
+    }
+    /* More specific content for ::before pseudo-elements on mobile.
+       This gets verbose, so consider if simple class name is enough,
+       or if you need custom data-attributes for labels. */
+    #mridul1Row .input-cell:nth-of-type(1)::before { content: "Gas Bill:"; }
+    #mridul1Row .input-cell:nth-of-type(2)::before { content: "Electricity Bill:"; }
+    #mridul1Row .input-cell:nth-of-type(3)::before { content: "Motor Bill:"; }
+    #mridul1Row .input-cell:nth-of-type(4)::before { content: "Bkash Charge:"; }
+    #mridul1Row .output-cell:nth-of-type(1)::before { content: "Total Bill:"; }
+    #mridul1Row .input-cell:nth-of-type(5)::before { content: "Total Paid:"; }
+    #mridul1Row .output-cell:nth-of-type(2)::before { content: "Return:"; }
+    /* You would repeat similar blocks for each row and each input/output cell if you want specific labels */
+    /* For brevity, not including all of them here, but the pattern is clear */
+}
+
+
+/* --- Removed Analytics Specific Styles --- */
+
+
+/* --- Print Specific Styles --- */
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        font-size: 8pt; /* Slightly smaller font for entire body in print */
+        background-image: none !important;
+        background: none !important;
+        background-color: white !important;
+    }
+    .container {
+        width: 100%;
+        margin: 0;
+        padding: 3mm; /* Even smaller padding for the container in print */
+        box-shadow: none;
+        border-radius: 0;
+    }
+    h1 {
+        font-size: 1.6em; /* Smaller h1 */
+        margin-bottom: 10px;
+    }
+    h2, h3, h4 {
+        font-size: 1.0em; /* Smaller h2, h3, h4 */
+        margin-top: 10px;
+        margin-bottom: 5px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    h2, h3 { /* Ensure specific headings remain centered in print too */
+        text-align: center;
+        width: 100%;
+    }
+    p, .bill-item {
+        font-size: 0.8em; /* Smaller text for paragraphs and bill items */
+        margin-bottom: 2px; /* Reduce space between items */
+    }
+    .bill-item {
+        padding: 2px 0; /* Less padding for print items */
+        background-color: transparent;
+        box-shadow: none;
+        border-bottom: 1px dashed #ccc;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        justify-content: space-between;
+    }
+    .bill-item:last-of-type {
+        border-bottom: none;
+    }
+    .container p:last-of-type {
+        text-align: center;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px; /* Adjust print margin */
+        margin-bottom: 10px; /* Adjust print margin */
+    }
+    .button-container {
+        display: none;
+    }
+
+    /* Calculator print styles - make it compact */
+    .calculator-table {
+        font-size: 0.6em; /* Even smaller font for printing tables */
+        grid-template-columns: 1.5fr repeat(7, 1fr);
+        border: 1px solid #ccc;
+    }
+    .header-cell, .row-label, .input-cell, .output-cell {
+        padding: 2px 2px; /* Reduced padding for print */
+        border-bottom: 1px solid #eee;
+        border-right: 1px solid #eee;
+    }
+    .header-cell:first-child, .row-label {
+        padding-left: 3px;
+    }
+    .input-cell input[type="number"] {
+        padding: 1px;
+        font-size: 0.8em;
+    }
+    /* Hide mobile ::before labels in print */
+    .table-row .input-cell::before,
+    .table-row .output-cell::before {
+        content: none;
+    }
+
+    /* Removed Analytics print styles */
+}
